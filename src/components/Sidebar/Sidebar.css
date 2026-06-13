@@ -2,7 +2,7 @@
 	position: fixed;
 	background-color: var(--blue);
 	height: 100vh;
-	flex: 1;
+	width: 280px;
 }
 
 .sidebar-title {

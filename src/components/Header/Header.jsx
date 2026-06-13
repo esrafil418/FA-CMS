@@ -6,7 +6,7 @@ export default function Header() {
 	return (
 		<div className="header">
 			<div className="admin-profile">
-				<img src="\images\Seong.webp" alt="Admin Profile" />
+				<img src="/images/Seong.webp" alt="Admin Profile" />
 				<div>
 					<h1>سونگ گی هون</h1>
 					<h3>بازیکن شماره 456</h3>
@@ -18,10 +18,18 @@ export default function Header() {
 					<input type="text" placeholder="جست و جو..." />
 					<button type="button">جستجو</button>
 				</div>
-				<button type="button" className="header-left-icons">
+				<button
+					type="button"
+					className="header-left-icons"
+					aria-label="اعلان‌ها"
+				>
 					<AiOutlineBell />
 				</button>
-				<button type="button" className="header-left-icons">
+				<button
+					type="button"
+					className="header-left-icons"
+					aria-label="تغییر تم"
+				>
 					<BsBrightnessHigh />
 				</button>
 			</div>
