@@ -5,8 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import Products from "./components/Products/Products";
 import Comments from "./components/Comments/Comments";
 import Users from "./components/Users/Users";
-import Orders from "./components/Comments/Orders/Orders";
-import Off from "./components/Comments/Off/Off";
+import Orders from "./components/Orders/Orders";
+import Off from "./components/Off/Off";
 
 export default function App() {
 	return (
