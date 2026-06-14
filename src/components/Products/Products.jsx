@@ -1,7 +1,6 @@
-import './Products.css'
+import ErrorBox from "../Error/ErrorBox";
+import "./Products.css";
 
 export default function Products() {
-  return (
-    <div>Products</div>
-  )
+	return <ErrorBox msg="هیچ محصولی یافت نشد!" />;
 }

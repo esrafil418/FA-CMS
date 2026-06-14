@@ -1,7 +1,7 @@
+import ErrorBox from '../Error/ErrorBox';
 import './Orders.css'
 
 export default function Orders() {
-  return (
-    <div>Orders</div>
-  )
+    return <ErrorBox msg="هیچ سفارشی یافت نشد!" />;
+  
 }

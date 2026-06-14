@@ -1,7 +1,7 @@
+import ErrorBox from '../Error/ErrorBox';
 import './Comments.css'
 
 export default function Comments() {
-  return (
-    <div>Comments</div>
-  )
+    return <ErrorBox msg="هیچ کامنتی یافت نشد!" />;
+  
 }
