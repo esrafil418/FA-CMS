@@ -18,7 +18,6 @@ export default function ProductsTable() {
 	};
 	return (
 		<>
-			<DetailsModal />
 			<table className="products-table">
 				<thead>
 					<tr className="products-table-heading-tr">

@@ -5,14 +5,16 @@ export default function DetailsModal({ onHide }) {
 	useEffect(() => {
 		const checkKey = (event) => {
 			console.log(event);
-			if (event.keyCode === "Escape") {
+			if (event.key === "Escape") {
 				onHide();
 			}
 		};
 		window.addEventListener("keydown", checkKey);
 
-		return window.removeEventListener("keydown", checkKey);
-	});
+		return () => {
+			window.removeEventListener("keydown", checkKey);
+		};
+	}, [onHide]);
 	return (
 		<div className="modal-parent active">
 			<div className="detail-modal">
