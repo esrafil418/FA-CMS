@@ -2,10 +2,13 @@ import { useState } from "react";
 import "./ProductsTable.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import EditModal from "../EditModal/EditModal";
+import { AiOutlineDollarCircle } from "react-icons/ai";
 
 export default function ProductsTable() {
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowDetailModal, setIsShowDetailModal] = useState(false);
+	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const deleteModalCancelAction = () => {
 		setIsShowDeleteModal(false);
 	};
@@ -15,6 +18,11 @@ export default function ProductsTable() {
 
 	const closeDetailsModal = () => {
 		setIsShowDetailModal(false);
+	};
+
+	const updateProductInfo = (event) => {
+		event.preventDefault();
+		console.log("edited");
 	};
 	return (
 		<>
@@ -56,7 +64,11 @@ export default function ProductsTable() {
 							>
 								حذف
 							</button>
-							<button type="button" className="products-table-btn">
+							<button
+								type="button"
+								className="products-table-btn"
+								onClick={() => setIsShowEditModal(true)}
+							>
 								ویرایش
 							</button>
 						</td>
@@ -71,6 +83,53 @@ export default function ProductsTable() {
 				/>
 			)}
 			{isShowDetailModal && <DetailsModal onHide={closeDetailsModal} />}
+			{isShowEditModal && (
+				<EditModal
+					onClose={() => setIsShowEditModal(false)}
+					onSubmit={updateProductInfo}
+				>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="عنوان جدید را وارد کنید"
+							className="edit-product-info"
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="عنوان جدید را وارد کنید"
+							className="edit-product-info"
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="عنوان جدید را وارد کنید"
+							className="edit-product-info"
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="عنوان جدید را وارد کنید"
+							className="edit-product-info"
+						/>
+					</div>
+				</EditModal>
+			)}
 		</>
 	);
 }

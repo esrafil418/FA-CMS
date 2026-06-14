@@ -26,7 +26,7 @@
 .products-table td {
 	padding: 20px;
 	display: flex;
-    align-items: center;
+	align-items: center;
 }
 
 .products-table-img {
@@ -42,4 +42,26 @@
 	color: var(--white);
 	background-color: var(--blue);
 	margin-right: 20px;
+}
+
+/* ! Edit Modal =>  */
+.edit-product-form-group {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	margin-top: 15px;
+	width: 100%;
+	background-color: #f4f4f4;
+	padding: 0 20px;
+	border-radius: 10px;
+}
+/* ! Edit Modal */
+
+.edit-product-info {
+	border: none;
+	outline: none;
+	background-color: unset;
+	font-size: 1.1rem;
+	width: 100%;
+	padding: 8px 10px;
 }
