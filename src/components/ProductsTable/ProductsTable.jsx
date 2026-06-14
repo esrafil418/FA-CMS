@@ -12,6 +12,7 @@ export default function ProductsTable() {
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [allProducts, setAllProducts] = useState([]);
 	const [productId, setProductId] = useState(null);
+	const [mainProductInfo, setMainProductInfo] = useState({});
 
 	const API_BASE_URL = "http://localhost:3000/api/products";
 
@@ -85,7 +86,10 @@ export default function ProductsTable() {
 									<button
 										type="button"
 										className="products-table-btn"
-										onClick={() => setIsShowDetailModal(true)}
+										onClick={() => {
+											setIsShowDetailModal(true);
+											setMainProductInfo(product);
+										}}
 									>
 										جزییات
 									</button>
@@ -124,7 +128,28 @@ export default function ProductsTable() {
 					cancel={deleteModalCancelAction}
 				/>
 			)}
-			{isShowDetailModal && <DetailsModal onHide={closeDetailsModal} />}
+			{isShowDetailModal && (
+				<DetailsModal onHide={closeDetailsModal}>
+					<table className="cms-table">
+						<thead>
+							<tr>
+								<th>محبوبیت</th>
+								<th>فروش</th>
+								<th>رنگ بندی</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>{mainProductInfo.popularity}</td>
+								<td>{mainProductInfo.sale}</td>
+								<td>{mainProductInfo.colors}</td>
+							</tr>
+						</tbody>
+					</table>
+				</DetailsModal>
+			)}
+
 			{isShowEditModal && (
 				<EditModal
 					onClose={() => setIsShowEditModal(false)}
