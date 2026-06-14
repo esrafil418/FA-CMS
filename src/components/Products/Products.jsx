@@ -1,4 +1,5 @@
 import AddNewProduct from "../AddNewProduct/AddNewProduct";
+import DeleteModal from "../DeleteModal/DeleteModal";
 import ErrorBox from "../Error/ErrorBox";
 import ProductsTable from "../ProductsTable/ProductsTable";
 import "./Products.css";
@@ -9,6 +10,7 @@ export default function Products() {
 			<AddNewProduct />
 			<ErrorBox msg="هیچ محصولی یافت نشد!" />
 			<ProductsTable />
+			<DeleteModal />
 		</>
 	);
 }
