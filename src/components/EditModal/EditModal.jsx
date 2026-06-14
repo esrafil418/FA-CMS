@@ -1,10 +1,14 @@
+import ReactDOM from "react-dom";
 import { useEffect } from "react";
 import "./EditModal.css";
 
-export default function EditModal({ children, onClose, onSubmit }) {
+export default function EditModal({
+	children,
+	onClose = () => {},
+	onSubmit = () => {},
+}) {
 	useEffect(() => {
 		const checkKey = (event) => {
-			console.log(event);
 			if (event.key === "Escape") {
 				onClose();
 			}
@@ -15,7 +19,7 @@ export default function EditModal({ children, onClose, onSubmit }) {
 			window.removeEventListener("keydown", checkKey);
 		};
 	}, [onClose]);
-	return (
+	return ReactDOM.createPortal(
 		<div className="modal-parent active">
 			<form className="edit-modal-form">
 				<h1>اطلاعات جدید را وارد نمایید</h1>
@@ -24,6 +28,7 @@ export default function EditModal({ children, onClose, onSubmit }) {
 					ثبت اطلاعات جدید
 				</button>
 			</form>
-		</div>
+		</div>,
+		document.getElementById("modal-parent"),
 	);
 }

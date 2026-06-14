@@ -4,7 +4,6 @@ import "./DetailsModal.css";
 export default function DetailsModal({ onHide }) {
 	useEffect(() => {
 		const checkKey = (event) => {
-			console.log(event);
 			if (event.key === "Escape") {
 				onHide();
 			}
@@ -16,8 +15,11 @@ export default function DetailsModal({ onHide }) {
 		};
 	}, [onHide]);
 	return (
-		<div className="modal-parent active">
-			<div className="detail-modal">
+		<div className="modal-parent active" onClick={onHide}>
+			<div className="detail-modal" onClick={(e) => e.stopPropagation()}>
+				<button type="button" onClick={onHide} aria-label="Close details modal">
+					×
+				</button>
 				<table className="cms-table">
 					<thead>
 						<tr>
