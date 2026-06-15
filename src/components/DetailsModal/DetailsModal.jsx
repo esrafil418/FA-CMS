@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import "./DetailsModal.css";
 
-export default function DetailsModal({ onHide }) {
+export default function DetailsModal({ onHide, children }) {
 	useEffect(() => {
 		const checkKey = (event) => {
 			if (event.key === "Escape") {
@@ -20,23 +20,7 @@ export default function DetailsModal({ onHide }) {
 				<button type="button" onClick={onHide} aria-label="Close details modal">
 					×
 				</button>
-				<table className="cms-table">
-					<thead>
-						<tr>
-							<th>اسم</th>
-							<th>قیمت</th>
-							<th>محبوبیت</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr>
-							<td>لپتاب</td>
-							<td>82.000.000</td>
-							<td>90</td>
-						</tr>
-					</tbody>
-				</table>
+				<table className="cms-table">{children}</table>
 			</div>
 		</div>
 	);
