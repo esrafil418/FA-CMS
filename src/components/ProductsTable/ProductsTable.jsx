@@ -6,11 +6,10 @@ import EditModal from "../EditModal/EditModal";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 import ErrorBox from "../Error/ErrorBox";
 
-export default function ProductsTable() {
+export default function ProductsTable({allProducts, getAllProducts}) {
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowDetailModal, setIsShowDetailModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
-	const [allProducts, setAllProducts] = useState([]);
 	const [productId, setProductId] = useState(null);
 	const [mainProductInfo, setMainProductInfo] = useState({});
 
@@ -23,17 +22,6 @@ export default function ProductsTable() {
 	const [productNewColors, setProductNewColors] = useState("");
 
 	const API_BASE_URL = "http://localhost:3000/api/products";
-
-	const getAllProducts = async () => {
-		await fetch(API_BASE_URL)
-			.then((res) => res.json())
-			.then(setAllProducts)
-			.catch(console.error);
-	};
-
-	useEffect(() => {
-		getAllProducts();
-	}, []);
 
 	const deleteModalCancelAction = () => {
 		setIsShowDeleteModal(false);
@@ -178,7 +166,7 @@ export default function ProductsTable() {
 
 						<tbody>
 							<tr>
-								<td>{mainProductInfo.popularity}</td>
+								<td>{mainProductInfo.popularity}%</td>
 								<td>{mainProductInfo.sale}</td>
 								<td>{mainProductInfo.colors}</td>
 							</tr>

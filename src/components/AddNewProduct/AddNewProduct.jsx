@@ -7,7 +7,7 @@ import { CiImageOn } from "react-icons/ci";
 import { RiStockLine } from "react-icons/ri";
 import { useState } from "react";
 
-export default function AddNewProduct() {
+export default function AddNewProduct({ getAllProducts }) {
 	const [newProductTitle, setNewProductTitle] = useState("");
 	const [newProductPrice, setNewProductPrice] = useState("");
 	const [newProductCount, setNewProductCount] = useState("");
@@ -40,8 +40,20 @@ export default function AddNewProduct() {
 			.then((res) => res.json())
 			.then((result) => {
 				console.log(result);
+				getAllProducts();
+				emptyInput();
 			});
 	};
+
+	function emptyInput() {
+		setNewProductTitle("");
+		setNewProductPrice("");
+		setNewProductCount("");
+		setNewProductPopularity("");
+		setNewProductSale("");
+		setNewProductImg("");
+		setNewProductColors("");
+	}
 
 	return (
 		<div className="products-main">
