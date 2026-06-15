@@ -14,6 +14,14 @@ export default function ProductsTable() {
 	const [productId, setProductId] = useState(null);
 	const [mainProductInfo, setMainProductInfo] = useState({});
 
+	const [productNewTitle, setProductNewTitle] = useState("");
+	const [productNewPrice, setProductNewPrice] = useState("");
+	const [productNewCount, setProductNewCount] = useState("");
+	const [productNewImg, setProductNewImg] = useState("");
+	const [productNewPopularity, setProductNewPopularity] = useState("");
+	const [productNewSale, setProductNewSale] = useState("");
+	const [productNewColors, setProductNewColors] = useState("");
+
 	const API_BASE_URL = "http://localhost:3000/api/products";
 
 	const getAllProducts = async () => {
@@ -108,7 +116,13 @@ export default function ProductsTable() {
 										className="products-table-btn"
 										onClick={() => {
 											setIsShowEditModal(true);
-											setProductId(product.id);
+											setProductNewTitle(product.title);
+											setProductNewPrice(product.price);
+											setProductNewSale(product.sale);
+											setProductNewPopularity(product.popularity);
+											setProductNewImg(product.img);
+											setProductNewCount(product.count);
+											setProductNewColors(product.colors);
 										}}
 									>
 										ویرایش
@@ -163,6 +177,7 @@ export default function ProductsTable() {
 							type="text"
 							placeholder="عنوان جدید را وارد کنید"
 							className="edit-product-info"
+							value={productNewTitle}
 						/>
 					</div>
 					<div className="edit-product-form-group">
@@ -171,8 +186,9 @@ export default function ProductsTable() {
 						</span>
 						<input
 							type="text"
-							placeholder="عنوان جدید را وارد کنید"
+							placeholder="قیمت جدید را وارد کنید"
 							className="edit-product-info"
+							value={productNewPrice}
 						/>
 					</div>
 					<div className="edit-product-form-group">
@@ -181,8 +197,9 @@ export default function ProductsTable() {
 						</span>
 						<input
 							type="text"
-							placeholder="عنوان جدید را وارد کنید"
+							placeholder="موجودی جدید را وارد کنید"
 							className="edit-product-info"
+							value={productNewCount}
 						/>
 					</div>
 					<div className="edit-product-form-group">
@@ -191,8 +208,42 @@ export default function ProductsTable() {
 						</span>
 						<input
 							type="text"
-							placeholder="عنوان جدید را وارد کنید"
+							placeholder="آدرس کاور جدید را وارد کنید"
 							className="edit-product-info"
+							value={productNewImg}
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="محبوبیت جدید را وارد کنید"
+							className="edit-product-info"
+							value={productNewPopularity}
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="میزان فروش جدید را وارد کنید"
+							className="edit-product-info"
+							value={productNewSale}
+						/>
+					</div>
+					<div className="edit-product-form-group">
+						<span>
+							<AiOutlineDollarCircle />
+						</span>
+						<input
+							type="text"
+							placeholder="تعداد رنگ بندی جدید را وارد کنید"
+							className="edit-product-info"
+							value={productNewColors}
 						/>
 					</div>
 				</EditModal>
