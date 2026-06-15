@@ -72,7 +72,7 @@ export default function ProductsTable() {
 		};
 		fetch(`${API_BASE_URL}/${productId}`, {
 			method: "PUT",
-			header: {
+			headers: {
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify(productNewInfo),

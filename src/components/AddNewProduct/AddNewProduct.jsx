@@ -5,8 +5,44 @@ import { IoIosColorPalette } from "react-icons/io";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { CiImageOn } from "react-icons/ci";
 import { RiStockLine } from "react-icons/ri";
+import { useState } from "react";
 
 export default function AddNewProduct() {
+	const [newProductTitle, setNewProductTitle] = useState("");
+	const [newProductPrice, setNewProductPrice] = useState("");
+	const [newProductCount, setNewProductCount] = useState("");
+	const [newProductPopularity, setNewProductPopularity] = useState("");
+	const [newProductSale, setNewProductSale] = useState("");
+	const [newProductImg, setNewProductImg] = useState("");
+	const [newProductColors, setNewProductColors] = useState("");
+
+	const API_BASE_URL = "http://localhost:3000/api/products";
+
+	const newProductInfo = {
+		title: newProductTitle,
+		price: newProductPrice,
+		count: newProductCount,
+		img: newProductImg,
+		popularity: newProductPopularity,
+		sale: newProductSale,
+		colors: newProductColors,
+	};
+
+	const addNewProduct = () => {
+		event.preventDefault();
+		fetch(API_BASE_URL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newProductInfo),
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+			});
+	};
+
 	return (
 		<div className="products-main">
 			<h1 className="products-title">افزودن محصول جدید</h1>
@@ -18,6 +54,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="اسم محصول را بنویسید"
 							className="add-products-input"
+							value={newProductTitle}
+							onChange={(event) => setNewProductTitle(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -26,6 +64,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="قیمت محصول را بنویسید"
 							className="add-products-input"
+							value={newProductPrice}
+							onChange={(event) => setNewProductPrice(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -34,6 +74,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="موجودی محصول را بنویسید"
 							className="add-products-input"
+							value={newProductCount}
+							onChange={(event) => setNewProductCount(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -42,6 +84,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="آدرس عکس محصول را بنویسید"
 							className="add-products-input"
+							value={newProductImg}
+							onChange={(event) => setNewProductImg(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -50,6 +94,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="میزان محبوبیت محصول را بنویسید"
 							className="add-products-input"
+							value={newProductPopularity}
+							onChange={(event) => setNewProductPopularity(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -58,6 +104,8 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="میزان فروش محصول را بنویسید"
 							className="add-products-input"
+							value={newProductSale}
+							onChange={(event) => setNewProductSale(event.target.value)}
 						/>
 					</div>
 					<div className="add-products-form-group">
@@ -66,10 +114,16 @@ export default function AddNewProduct() {
 							type="text"
 							placeholder="تعداد رنگ بندی محصول را بنویسید"
 							className="add-products-input"
+							value={newProductColors}
+							onChange={(event) => setNewProductColors(event.target.value)}
 						/>
 					</div>
 				</div>
-				<button type="button" className="add-product-submit">
+				<button
+					type="button"
+					className="add-product-submit"
+					onClick={addNewProduct}
+				>
 					ثبت محصول
 				</button>
 			</form>
