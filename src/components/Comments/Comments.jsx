@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import ErrorBox from "../Error/ErrorBox";
 import "./Comments.css";
 import DetailsModal from "../DetailsModal/DetailsModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 export default function Comments() {
 	const [allComments, setAllComments] = useState([]);
 	const [isShowDetailModal, setIsShowDetailModal] = useState(false);
+	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 
 	const API_BASE_URL = "http://localhost:3000/api/comments";
@@ -19,6 +21,12 @@ export default function Comments() {
 	}, []);
 
 	const closeDetailsModal = () => setIsShowDetailModal(false);
+	const closeDeleteModal = () => setIsShowDeleteModal(false);
+
+	const deleteComment = () => {
+		console.log("حذف شد");
+		setIsShowDeleteModal(false);
+	};
 
 	return (
 		<div>
@@ -53,7 +61,12 @@ export default function Comments() {
 								<td>{comment.date}</td>
 								<td>{comment.hour}</td>
 								<td>
-									<button type="button">حذف</button>
+									<button
+										type="button"
+										onClick={() => setIsShowDeleteModal(true)}
+									>
+										حذف
+									</button>
 									<button type="button">ویرایش</button>
 									<button type="button">پاسخ</button>
 									<button type="button">تایید</button>
@@ -70,6 +83,10 @@ export default function Comments() {
 				<DetailsModal onHide={closeDetailsModal}>
 					<p className="text-modal">{mainCommentBody}</p>
 				</DetailsModal>
+			)}
+
+			{isShowDeleteModal && (
+				<DeleteModal cancel={closeDeleteModal} submit={deleteComment} />
 			)}
 		</div>
 	);
