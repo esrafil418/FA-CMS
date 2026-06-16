@@ -13,6 +13,13 @@ A full-stack Content Management System built with React and Express.js for manag
 
 ---
 
+## 📂 Repository Structure
+
+- **Frontend Repository:** [FA-CMS](https://github.com/esrafil418/FA-CMS) *(this repository)*
+- **Backend Repository:** [FA-CMS_backend](https://github.com/esrafil418/FA-CMS_backend)
+
+---
+
 ## ✨ Features
 
 ### Admin Dashboard
