@@ -6,13 +6,10 @@ A full-stack Content Management System built with React and Express.js for manag
 
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
 - [API Documentation](#api-documentation)
 - [Development](#development)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
 
 ---
 
