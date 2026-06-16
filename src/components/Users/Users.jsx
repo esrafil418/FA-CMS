@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import ErrorBox from "../Error/ErrorBox";
 import "./Users.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import DetailsModal from "../DetailsModal/DetailsModal";
 import EditModal from "../EditModal/EditModal";
 import { AiOutlineDollarCircle } from "react-icons/ai";
 
 export default function Users() {
 	const [users, setUsers] = useState([]);
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+	const [isShowDetailsModal, setIsShowDetailsModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [mainUserID, setMainUserID] = useState(null);
+	const [mainUserInfo, setMainUserInfo] = useState({});
 
 	const [userNewFirstname, setUserNewFirstname] = useState("");
 	const [userNewLastname, setUserNewLastname] = useState("");
@@ -36,6 +39,7 @@ export default function Users() {
 
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
 	const closeEditModal = () => setIsShowEditModal(false);
+	const closeDetailModal = () => setIsShowDetailsModal(false);
 
 	const removeUser = () => {
 		fetch(`${API_BASE_URL}/${mainUserID}`, {
@@ -71,15 +75,15 @@ export default function Users() {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify(userNewInfo)
+			body: JSON.stringify(userNewInfo),
 		})
-		.then(res => res.json())
-		.then(result => {
-			console.log(result);
-			setIsShowEditModal(false)
-			getAllUsers()
-		})
-		}
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+				setIsShowEditModal(false);
+				getAllUsers();
+			});
+	};
 
 	return (
 		<div className="cms-main">
@@ -118,7 +122,15 @@ export default function Users() {
 										>
 											حذف
 										</button>
-										<button type="button">جزییات</button>
+										<button
+											type="button"
+											onClick={() => {
+												setMainUserInfo(user);
+												setIsShowDetailsModal(true);
+											}}
+										>
+											جزییات
+										</button>
 										<button
 											type="button"
 											onClick={() => {
@@ -250,9 +262,7 @@ export default function Users() {
 							className="edit-user-info-input resize"
 							value={userNewAddress}
 							onChange={(event) => setUserNewAddress(event.target.value)}
-						>
-
-						</textarea>
+						></textarea>
 					</div>
 					<div className="edit-user-info-input-group">
 						<span>
@@ -280,5 +290,30 @@ export default function Users() {
 					</div>
 				</EditModal>
 			)}
+
+			{isShowDetailsModal && (
+				<DetailsModal onHide={closeDetailModal}>
+					<table className="cms-table">
+						<thead>
+							<tr>
+								<th>شهر</th>
+								<th>آدرس</th>
+								<th>امتیاز</th>
+								<th>میزان خرید</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>{mainUserInfo.city}</td>
+								<td>{mainUserInfo.address}</td>
+								<td>{mainUserInfo.score}</td>
+								<td>{mainUserInfo.buy}</td>
+							</tr>
+						</tbody>
+					</table>
+				</DetailsModal>
+			)}
 		</div>
-	)
+	);
+}
