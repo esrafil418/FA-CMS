@@ -9,23 +9,35 @@ export default function Comments() {
 	const [isShowDetailModal, setIsShowDetailModal] = useState(false);
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
+	const [commentID, setCommmentID] = useState(null);
 
 	const API_BASE_URL = "http://localhost:3000/api/comments";
 
 	useEffect(() => {
+		getAllComments();
+	}, []);
+
+	function getAllComments() {
 		fetch(API_BASE_URL)
 			.then((res) => res.json())
 			.then((comments) => {
 				setAllComments(comments);
 			});
-	}, []);
+	}
 
 	const closeDetailsModal = () => setIsShowDetailModal(false);
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
 
 	const deleteComment = () => {
-		console.log("حذف شد");
-		setIsShowDeleteModal(false);
+		fetch(`${API_BASE_URL}/${commentID}`, {
+			method: "DELETE",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+				setIsShowDeleteModal(false);
+				getAllComments();
+			});
 	};
 
 	return (
@@ -63,7 +75,10 @@ export default function Comments() {
 								<td>
 									<button
 										type="button"
-										onClick={() => setIsShowDeleteModal(true)}
+										onClick={() => {
+											setIsShowDeleteModal(true);
+											setCommmentID(comment.id);
+										}}
 									>
 										حذف
 									</button>
