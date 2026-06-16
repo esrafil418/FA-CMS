@@ -11,6 +11,7 @@ export default function Comments() {
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
+	const [isShowRejectModal, setIsShowRejectModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [commentID, setCommmentID] = useState(null);
 
@@ -32,6 +33,19 @@ export default function Comments() {
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
 	const closeEditModal = () => setIsShowEditModal(false);
 	const closeAcceptModal = () => setIsShowAcceptModal(false);
+	const closeRejectModal = () => setIsShowRejectModal(false);
+
+	const rejectComment = () => {
+		fetch(`${API_BASE_URL}/reject/${commentID}`, {
+			method: "POST",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+				setIsShowRejectModal(false);
+				getAllComments();
+			});
+	};
 
 	const AcceptComment = () => {
 		fetch(`${API_BASE_URL}/accept/${commentID}`, {
@@ -130,7 +144,7 @@ export default function Comments() {
 									</button>
 									<button type="button">پاسخ</button>
 
-									{comment.isAccept === 0 && (
+									{comment.isAccept === 0 ? (
 										<button
 											type="button"
 											onClick={() => {
@@ -139,6 +153,16 @@ export default function Comments() {
 											}}
 										>
 											تایید
+										</button>
+									) : (
+										<button
+											type="button"
+											onClick={() => {
+												setIsShowRejectModal(true);
+												setCommmentID(comment.id);
+											}}
+										>
+											رد
 										</button>
 									)}
 								</td>
@@ -185,6 +209,14 @@ export default function Comments() {
 					title="آیا از تایید اطمینان دارید؟"
 					cancel={closeAcceptModal}
 					submit={AcceptComment}
+				/>
+			)}
+
+			{isShowRejectModal && (
+				<DeleteModal
+					title="آیا از رد اطمینان دارید؟"
+					cancel={closeRejectModal}
+					submit={rejectComment}
 				/>
 			)}
 		</div>
