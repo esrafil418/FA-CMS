@@ -149,6 +149,7 @@ export default function ProductsTable({allProducts, getAllProducts}) {
 
 			{isShowDeleteModal && (
 				<DeleteModal
+				title='آیا از حذف اطمینان دارید؟'
 					submit={deleteModalSubmitAction}
 					cancel={deleteModalCancelAction}
 				/>
