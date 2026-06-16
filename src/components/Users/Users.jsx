@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import ErrorBox from "../Error/ErrorBox";
-import "./Users";
+import "./Users.css";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import EditModal from "../EditModal/EditModal";
+import { AiOutlineDollarCircle } from "react-icons/ai";
 
 export default function Users() {
 	const [users, setUsers] = useState([]);
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
+	const [isShowEditModal, setIsShowEditModal] = useState(false);
 	const [mainUserID, setMainUserID] = useState(null);
 
 	const API_BASE_URL = "http://localhost:3000/api/users";
@@ -21,6 +24,8 @@ export default function Users() {
 	}
 
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
+	const closeEditModal = () => setIsShowEditModal(false);
+
 	const removeUser = () => {
 		fetch(`${API_BASE_URL}/${mainUserID}`, {
 			method: "DELETE",
@@ -31,6 +36,12 @@ export default function Users() {
 				setIsShowDeleteModal(false);
 				getAllUsers();
 			});
+	};
+
+	const updateUser = (event) => {
+		event.preventDefault();
+		console.log("اطلاعات آپدیت شد");
+		setIsShowEditModal(false);
 	};
 
 	return (
@@ -71,7 +82,15 @@ export default function Users() {
 											حذف
 										</button>
 										<button type="button">جزییات</button>
-										<button type="button">ویرایش</button>
+										<button
+											type="button"
+											onClick={() => {
+												setIsShowEditModal(true);
+												setMainUserID(user.id);
+											}}
+										>
+											ویرایش
+										</button>
 									</td>
 								</tr>
 							))}
@@ -88,6 +107,111 @@ export default function Users() {
 					cancel={closeDeleteModal}
 					submit={removeUser}
 				/>
+			)}
+
+			{isShowEditModal && (
+				<EditModal onClose={closeEditModal} onSubmit={updateUser}>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+					<div className="edit-user-info-input-group">
+						<span>
+							<AiOutlineDollarCircle />
+							<input
+								type="text"
+								className="edit-user-info-input"
+								placeholder="مقدار جدید را وارد نمایید"
+							/>
+						</span>
+					</div>
+				</EditModal>
 			)}
 		</div>
 	);
