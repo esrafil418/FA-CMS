@@ -52,8 +52,34 @@ export default function Users() {
 	const updateUser = (event) => {
 		event.preventDefault();
 		console.log("اطلاعات آپدیت شد");
-		setIsShowEditModal(false);
-	};
+
+		const userNewInfo = {
+			firsname: userNewFirstname,
+			lastname: userNewLastname,
+			username: userNewUsername,
+			password: userNewPassword,
+			phone: userNewPhone,
+			city: userNewCity,
+			email: userNewEmail,
+			address: userNewAddress,
+			score: userNewScore,
+			buy: userNewBuy,
+		};
+
+		fetch(`${API_BASE_URL}/${mainUserID}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(userNewInfo)
+		})
+		.then(res => res.json())
+		.then(result => {
+			console.log(result);
+			setIsShowEditModal(false)
+			getAllUsers()
+		})
+		}
 
 	return (
 		<div className="cms-main">
@@ -220,13 +246,13 @@ export default function Users() {
 						<span>
 							<AiOutlineDollarCircle />
 						</span>
-						<input
-							type="text"
-							className="edit-user-info-input"
+						<textarea
+							className="edit-user-info-input resize"
 							value={userNewAddress}
 							onChange={(event) => setUserNewAddress(event.target.value)}
-							placeholder="مقدار جدید را وارد نمایید"
-						/>
+						>
+
+						</textarea>
 					</div>
 					<div className="edit-user-info-input-group">
 						<span>
@@ -255,5 +281,4 @@ export default function Users() {
 				</EditModal>
 			)}
 		</div>
-	);
-}
+	)
