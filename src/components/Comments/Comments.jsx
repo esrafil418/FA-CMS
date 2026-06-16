@@ -10,6 +10,7 @@ export default function Comments() {
 	const [isShowDetailModal, setIsShowDetailModal] = useState(false);
 	const [isShowDeleteModal, setIsShowDeleteModal] = useState(false);
 	const [isShowEditModal, setIsShowEditModal] = useState(false);
+	const [isShowAcceptModal, setIsShowAcceptModal] = useState(false);
 	const [mainCommentBody, setMainCommentBody] = useState("");
 	const [commentID, setCommmentID] = useState(null);
 
@@ -30,6 +31,19 @@ export default function Comments() {
 	const closeDetailsModal = () => setIsShowDetailModal(false);
 	const closeDeleteModal = () => setIsShowDeleteModal(false);
 	const closeEditModal = () => setIsShowEditModal(false);
+	const closeAcceptModal = () => setIsShowAcceptModal(false);
+
+	const AcceptComment = () => {
+		fetch(`${API_BASE_URL}/accept/${commentID}`, {
+			method: "POST",
+		})
+			.then((res) => res.json())
+			.then((result) => {
+				console.log(result);
+				setIsShowAcceptModal(false);
+				getAllComments();
+			});
+	};
 
 	const deleteComment = () => {
 		fetch(`${API_BASE_URL}/${commentID}`, {
@@ -115,7 +129,18 @@ export default function Comments() {
 										ویرایش
 									</button>
 									<button type="button">پاسخ</button>
-									<button type="button">تایید</button>
+
+									{comment.isAccept === 0 && (
+										<button
+											type="button"
+											onClick={() => {
+												setIsShowAcceptModal(true);
+												setCommmentID(comment.id);
+											}}
+										>
+											تایید
+										</button>
+									)}
 								</td>
 							</tr>
 						))}
@@ -128,11 +153,22 @@ export default function Comments() {
 			{isShowDetailModal && (
 				<DetailsModal onHide={closeDetailsModal}>
 					<p className="text-modal">{mainCommentBody}</p>
+					<button
+						type="button"
+						className="text-modal-close-btn"
+						onClick={closeDetailsModal}
+					>
+						بستن
+					</button>
 				</DetailsModal>
 			)}
 
 			{isShowDeleteModal && (
-				<DeleteModal cancel={closeDeleteModal} submit={deleteComment} />
+				<DeleteModal
+					title="آیا از حذف اطمینان دارید؟"
+					cancel={closeDeleteModal}
+					submit={deleteComment}
+				/>
 			)}
 
 			{isShowEditModal && (
@@ -142,6 +178,14 @@ export default function Comments() {
 						onChange={(event) => setMainCommentBody(body.target.value)}
 					></textarea>
 				</EditModal>
+			)}
+
+			{isShowAcceptModal && (
+				<DeleteModal
+					title="آیا از تایید اطمینان دارید؟"
+					cancel={closeAcceptModal}
+					submit={AcceptComment}
+				/>
 			)}
 		</div>
 	);
